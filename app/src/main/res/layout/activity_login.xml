@@ -9,10 +9,10 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgAppLogo"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:src="@drawable/main_app_ic"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/_40sdp"
         app:shapeAppearanceOverlay="@style/RoundedCorners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,16 +34,16 @@
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:textColor="#fff"
-            android:layout_margin="@dimen/_16sdp"
-            android:backgroundTint="#E67300"/>
+            android:layout_margin="@dimen/_20sdp"
+            android:backgroundTint="#72AF29"/>
 
         <Button
             android:id="@+id/btnSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:backgroundTint="#E67300"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:backgroundTint="#C42384"
             android:textColor="#ffff"/>
     </LinearLayout>
 
