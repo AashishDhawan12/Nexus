@@ -44,8 +44,7 @@
             android:text="@string/sign_up"
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:backgroundTint="#E67300"
-            android:textColor="#fff"
-            />
+            android:textColor="#ffff"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
