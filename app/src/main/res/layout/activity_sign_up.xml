@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgAppLogo"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:src="@drawable/ic_person"
+        android:background="#ffff"
+        android:layout_marginTop="@dimen/_40sdp"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <ImageView
+        android:id="@+id/floatingActionButton"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginEnd="4dp"
+        android:foregroundTint="#FFF"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="@+id/imgAppLogo"
+        app:layout_constraintEnd_toEndOf="@+id/imgAppLogo"
+        app:layout_constraintTop_toBottomOf="@+id/imgAppLogo"
+        app:srcCompat="@drawable/ic_add"
+        app:layout_constraintStart_toEndOf="@id/imgAppLogo"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAppLogo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:background="#ffff"
+            android:textSize="@dimen/_16sdp"
+            android:hint="@string/email"
+            android:padding="@dimen/_4sdp"
+            android:textColor="#000000"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
+            android:background="#ffff"
+            android:textSize="@dimen/_16sdp"
+            android:hint="@string/profileName"
+            android:padding="@dimen/_4sdp"
+            android:textColor="#000000"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:background="#ffff"
+            android:textSize="@dimen/_16sdp"
+            android:hint="@string/password"
+            android:padding="@dimen/_4sdp"
+            android:textColor="#000000"/>
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:backgroundTint="#C42384"
+            android:text="@string/sign_up"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textColor="#ffff" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

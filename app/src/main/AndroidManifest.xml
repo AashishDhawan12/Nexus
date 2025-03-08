@@ -13,11 +13,13 @@
         android:theme="@style/Theme.Nexus"
         tools:targetApi="31">
         <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.LoginActivity"
-            android:exported="false">
-
-        </activity>
-        <activity android:name=".activity.SplashActivity"
+            android:exported="false"></activity>
+        <activity
+            android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

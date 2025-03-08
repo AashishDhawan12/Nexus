@@ -2,4 +2,8 @@
     <string name="app_name">Nexus</string>
     <string name="login">LOGIN</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="email">email Address</string>
+    <string name="password">password</string>
+    <string name="don_t_have_an_account">Don\'t have an account ?</string>
+    <string name="profileName">profile name</string>
 </resources>

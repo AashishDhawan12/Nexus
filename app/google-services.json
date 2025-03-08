@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272020516050",
+    "project_id": "nexuschat-1ede4",
+    "storage_bucket": "nexuschat-1ede4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272020516050:android:1b5bea44cdfb39dcdf910b",
+        "android_client_info": {
+          "package_name": "com.example.nexus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbOKhd4NDEaUR2ICpmjoOAUivPdX-EzLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
