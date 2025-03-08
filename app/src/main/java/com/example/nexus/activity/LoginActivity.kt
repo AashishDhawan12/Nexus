@@ -1,6 +1,9 @@
 package com.example.nexus.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nexus.R
@@ -32,7 +35,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignup.setOnClickListener {
-
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }
