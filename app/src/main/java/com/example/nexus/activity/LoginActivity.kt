@@ -21,13 +21,20 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
+            val email  = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
+            if(email == "" && password == ""){
+                Toast.makeText(this,"Please fill all the fields",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) {
                 task ->
                     if(task.isSuccessful){
                         val user = auth.currentUser
                         Toast.makeText(this,"Logged in successfully",Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }else{
                         Toast.makeText(this,"Something went wrong",Toast.LENGTH_SHORT).show()
                     }
