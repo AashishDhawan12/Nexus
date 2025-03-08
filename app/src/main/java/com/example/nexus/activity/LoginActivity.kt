@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
                 task ->
                     if(task.isSuccessful){
                         val user = auth.currentUser
-                        Toast.makeText(this,"Looged in suxxfully",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"Logged in successfully",Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(this,"Something went wrong",Toast.LENGTH_SHORT).show()
                     }
