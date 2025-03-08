@@ -6,5 +6,5 @@ data class UserData(
     val userName : String,
     val email : String,
     val password : String,
-    val image : Bitmap ? = null
+    val image : String
 )
