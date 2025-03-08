@@ -36,7 +36,6 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         database = FirebaseDatabase.getInstance().getReference()
-
         auth = FirebaseAuth.getInstance()
 
         binding.floatingActionButton.setOnClickListener{
@@ -58,11 +57,10 @@ class SignUpActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         val user = UserData(profileName,email,password,"")
                         database.child("users").child(auth.currentUser!!.uid).setValue(user)
-                        uploadImageAndStoreUrl(auth.currentUser!!.uid,imageUri)
+
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
-
                     }else{
                         Toast.makeText(this,"Something went wrong",Toast.LENGTH_SHORT).show()
                     }
@@ -71,21 +69,5 @@ class SignUpActivity : AppCompatActivity() {
 
     }
 
-    fun uploadImageAndStoreUrl(userId: String, imageUri: Uri) {
-        val storage = Firebase.storage
-        val storageRef = storage.reference.child("images/$userId/profile.jpg")
 
-        storageRef.putFile(imageUri)
-            .addOnSuccessListener { taskSnapshot ->
-                storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                    val database = Firebase.database
-                    val userRef = database.reference.child("users/$userId/image")
-                    userRef.setValue(downloadUrl.toString())
-                    println("Image uploaded and URL stored: $downloadUrl")
-                }
-            }
-            .addOnFailureListener { exception ->
-                println("Error uploading image or storing URL: $exception")
-            }
-    }
 }
