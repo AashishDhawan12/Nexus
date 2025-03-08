@@ -19,11 +19,11 @@ class HomeAdapter (private val list: List<UserData>): RecyclerView.Adapter<HomeA
     }
 
     override fun onBindViewHolder(holder: ViewModel, position: Int) {
-        holder.binding.imgUser.setImageBitmap(list[position].image)
-        holder.binding.txtUserName.text = list[position].userName
-        holder.binding.txtRecentMessage.text = list[position].recentMessage
-        holder.binding.txtTime.text = list[position].recentTime
-        holder.binding.txtMessageCount.text = list[position].messageCount.toString()
+//        holder.binding.imgUser.setImageBitmap(list[position].image)
+//        holder.binding.txtUserName.text = list[position].userName
+//        holder.binding.txtRecentMessage.text = list[position].recentMessage
+//        holder.binding.txtTime.text = list[position].recentTime
+//        holder.binding.txtMessageCount.text = list[position].messageCount.toString()
     }
 
 }

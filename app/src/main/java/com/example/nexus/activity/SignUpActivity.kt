@@ -3,21 +3,40 @@ package com.example.nexus.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nexus.R
 import com.example.nexus.databinding.ActivitySignUpBinding
+import com.example.nexus.model.UserData
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()){
+            uri ->
+                if(uri != null){
+                    binding.imgAppLogo.setImageURI(uri)
+                }
+        }
+
+        database = FirebaseDatabase.getInstance().getReference()
+
         auth = FirebaseAuth.getInstance()
+
+        binding.floatingActionButton.setOnClickListener{
+            pickImageLauncher.launch("image/*")
+        }
         binding.btnSignup.setOnClickListener {
             val profileName = binding.etProfile.text.toString()
             val email = binding.etEmail.text.toString()
@@ -31,6 +50,9 @@ class SignUpActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
                 task ->
                     if(task.isSuccessful){
+                        val user = UserData(profileName,email,password)
+                        database.child("users").child(auth.currentUser!!.uid).setValue(user)
+
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()

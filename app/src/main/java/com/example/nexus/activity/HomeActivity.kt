@@ -18,9 +18,9 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val list = listOf(UserData("bob","nhi hora kya",null,"12:00",69))
 
-        binding.chatRecyclerView.adapter = HomeAdapter(list)
+
+        //binding.chatRecyclerView.adapter = HomeAdapter(list)
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
