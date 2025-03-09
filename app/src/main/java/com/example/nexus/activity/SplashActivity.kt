@@ -14,8 +14,16 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+        val nextActivity = if (isLoggedIn) HomeActivity::class.java else LoginActivity::class.java
+
+        val intent = Intent(this, nextActivity)
+
+
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(intent)
             finish()
         },delay)
     }

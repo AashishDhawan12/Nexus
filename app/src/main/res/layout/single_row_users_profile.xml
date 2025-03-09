@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgSearchUser"
         android:layout_width="@dimen/_91sdp"
         android:layout_height="@dimen/_91sdp"
-        android:src="@drawable/ic_person"/>
+        android:src="@drawable/ic_person"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"/>
 
     <TextView
         android:id="@+id/txtSearchUser"

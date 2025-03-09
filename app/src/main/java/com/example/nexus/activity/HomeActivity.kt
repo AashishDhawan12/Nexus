@@ -11,6 +11,7 @@ import com.example.nexus.R
 import com.example.nexus.adapter.HomeAdapter
 import com.example.nexus.databinding.ActivityHomeBinding
 import com.example.nexus.model.UserData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -20,11 +21,14 @@ import com.google.firebase.database.ValueEventListener
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding : ActivityHomeBinding
     private lateinit var reference: DatabaseReference
-     var list= mutableListOf<UserData>()
+    var list= mutableListOf<UserData>()
     private lateinit var adapter: HomeAdapter
+    private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = FirebaseAuth.getInstance()
 
         adapter = HomeAdapter(list)
 
@@ -60,6 +64,16 @@ class HomeActivity : AppCompatActivity() {
 
         binding.chatRecyclerView.adapter = HomeAdapter(list)
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val user = auth.currentUser
+        val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        if(user != null) {
+            editor.putBoolean("isLoggedIn", true)
+            editor.putString("userId", user.uid)
+            editor.apply()
+        }
 
     }
 }
