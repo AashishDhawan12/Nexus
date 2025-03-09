@@ -1,27 +1,27 @@
 package com.example.nexus.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import com.example.nexus.databinding.ActivitySignUpBinding
 import com.example.nexus.model.UserData
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.database
-import com.google.firebase.storage.storage
+import java.io.ByteArrayOutputStream
+import android.util.Base64
+import java.io.FileNotFoundException
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private  var Bitmap : Bitmap? = null
+    private  var bitmap : Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,8 @@ class SignUpActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
                 task ->
                     if(task.isSuccessful){
-                        val user = UserData(profileName,email,password,"")
+                        val img = bitmapToBase64(bitmap!!)
+                        val user = UserData(profileName,email,password,img)
                         database.child("users").child(auth.currentUser!!.uid).setValue(user)
 
                         val intent = Intent(this, HomeActivity::class.java)
@@ -69,7 +70,32 @@ class SignUpActivity : AppCompatActivity() {
         startActivityForResult(photoPickerIntent,109)
     }
 
+    fun bitmapToBase64(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream) // You can change the format and quality
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            try {
+                val imageUri = data!!.data
+                val imageStream = contentResolver.openInputStream(imageUri!!)
+                val selectedImage = BitmapFactory.decodeStream(imageStream)
+                binding.imgAppLogo.setImageBitmap(selectedImage)
+                bitmap = selectedImage
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+            }
+
+        } else {
+            Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show()
+        }
+    }
 
 
 }
