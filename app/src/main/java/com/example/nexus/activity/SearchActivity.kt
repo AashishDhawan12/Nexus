@@ -50,8 +50,6 @@ class SearchActivity : AppCompatActivity() {
 
         binding.searchList.layoutManager = LinearLayoutManager(this)
         binding.searchList.adapter = adapter
-
-
     }
 
     private fun findUser(query: String) {

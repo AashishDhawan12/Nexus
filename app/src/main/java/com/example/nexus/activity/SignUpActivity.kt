@@ -1,6 +1,7 @@
 package com.example.nexus.activity
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -20,26 +21,19 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private lateinit var imageUri: Uri
+    private  var Bitmap : Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()){
-            uri ->
-                if(uri != null){
-                    binding.imgAppLogo.setImageURI(uri)
-                    imageUri = uri
-                }
-        }
 
         database = FirebaseDatabase.getInstance().getReference()
         auth = FirebaseAuth.getInstance()
 
         binding.floatingActionButton.setOnClickListener{
-            pickImageLauncher.launch("image/*")
+            selectImage()
         }
 
         binding.btnSignup.setOnClickListener {
@@ -68,6 +62,14 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun selectImage() {
+        val photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.type = "image/*"
+        startActivityForResult(photoPickerIntent,109)
+    }
+
+
 
 
 }
