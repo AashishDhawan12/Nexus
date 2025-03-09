@@ -1,15 +1,13 @@
 package com.example.nexus.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nexus.adapter.SearchUserAdapter
 import com.example.nexus.databinding.ActivitySearchBinding
 import com.example.nexus.model.UserData
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -30,39 +28,59 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
         adapter = SearchUserAdapter(userList)
 
-        binding.btnSearch.setOnClickListener {
-            binding.progressBar.visibility = View.VISIBLE
-            db = FirebaseDatabase.getInstance().getReference("users")
-            val query = binding.etSearchUser.text.toString().lowercase()
-            var q:Query = db.orderByKey()
-            q = db.orderByChild("userName").startAt(query).endAt(query + "\uf8ff")
-
-            q.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()){
-                        userList.clear()
-
-                        for(snap in snapshot.children){
-                            val user = snap.getValue(UserData::class.java)
-                            if(user != null){
-                                userList.add(user)
-                            }
-                        }
-
-                        binding.searchList.adapter?.notifyDataSetChanged()
-                        binding.progressBar.visibility = View.GONE
-                    }
+        binding.searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    findUser(query)
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    binding.progressBar.visibility = View.GONE
-                }
+                return true
+            }
 
-            })
-        }
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                if (newText != null) {
+                    findUser(newText)
+                }
+                return true
+            }
+
+        })
+
+
         binding.searchList.layoutManager = LinearLayoutManager(this)
         binding.searchList.adapter = adapter
 
+
+    }
+
+    private fun findUser(query: String) {
+        binding.progressBar.visibility = View.VISIBLE
+        db = FirebaseDatabase.getInstance().getReference("users")
+        var q:Query = db.orderByChild("userName").startAt(query.toLowerCase(Locale.ROOT)).endAt(query + "\uf8ff")
+
+        q.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    userList.clear()
+
+                    for(snap in snapshot.children){
+                        val user = snap.getValue(UserData::class.java)
+                        if(user != null){
+                            userList.add(user)
+                        }
+                    }
+
+                    binding.searchList.adapter?.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                binding.progressBar.visibility = View.GONE
+            }
+
+        })
 
     }
 }
