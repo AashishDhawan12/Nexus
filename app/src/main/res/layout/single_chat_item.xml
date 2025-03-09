@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#302F2F">
+    android:background="#000000"
+    android:padding="@dimen/_4sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,24 +12,28 @@
         android:layout_margin="@dimen/_4sdp">
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgUser"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
             android:src="@drawable/ic_person"
             android:scaleType="centerCrop"
             android:background="@color/white"
-            app:shapeAppearanceOverlay="@style/RoundedCorners"/>
+            app:shapeAppearanceOverlay="@style/Circular"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/_4sdp">
             <TextView
                 android:id="@+id/txtUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="USERNAME"
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/white"
                 android:layout_margin="@dimen/_4sdp"/>
 
             <TextView
@@ -36,6 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:textColor="#6D6969"
+                android:textSize="@dimen/_12sdp"
                 android:text="Recent Message"
                 android:layout_margin="@dimen/_4sdp"/>
 
@@ -51,15 +58,19 @@
                 android:layout_height="wrap_content"
                 android:text="TIME"
                 android:layout_weight="1"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="#6D6969"
                 android:layout_margin="@dimen/_4sdp"/>
 
             <TextView
                 android:id="@+id/txtMessageCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="300"
+                android:text="250"
                 android:padding="@dimen/_2sdp"
-                android:background="@drawable/rounded_corners"
+                android:textColor="#000"
+                android:textSize="@dimen/_10sdp"
+                android:background="@drawable/circular_img"
                 android:layout_margin="@dimen/_4sdp"/>
 
         </LinearLayout>

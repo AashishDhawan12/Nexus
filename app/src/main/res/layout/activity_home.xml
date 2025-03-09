@@ -11,13 +11,13 @@
         android:id="@+id/chatHead"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#C1BDBD"
+        android:background="#2D2C2C"
         android:fontFamily="@font/ar_one_sans"
-        android:paddingLeft="@dimen/_6sdp"
-        android:paddingTop="@dimen/_6sdp"
+        android:paddingLeft="@dimen/_8sdp"
         android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_25sdp"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_20sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,9 +37,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search"
-        android:backgroundTint="#469BF6"
+        android:backgroundTint="#3C5169"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/_20sdp"/>
+        android:layout_margin="@dimen/_20sdp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
