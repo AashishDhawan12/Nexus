@@ -5,14 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SignUpActivity">
+    tools:context=".activity.SignUpActivity"
+    android:background="#302F2F">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgAppLogo"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:src="@drawable/ic_person"
-        android:background="#ffff"
+        android:background="#9B9797"
         android:layout_marginTop="@dimen/_40sdp"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/RoundedCorners"
@@ -26,6 +27,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_add"
+        android:backgroundTint="#64DF30"
         app:fabCustomSize="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgAppLogo"
         app:layout_constraintEnd_toEndOf="@+id/imgAppLogo"
@@ -41,54 +43,55 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAppLogo">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etProfile"
-            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="#ffff"
-            android:textSize="@dimen/_14sdp"
-            android:inputType="text"
+            android:background="#C7EFF6"
             android:hint="@string/profileName"
+            android:inputType="text"
+            android:maxLines="1"
             android:padding="@dimen/_6sdp"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:textSize="@dimen/_14sdp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
-            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_20sdp"
-            android:background="#ffff"
-            android:textSize="@dimen/_14sdp"
-            android:inputType="textEmailAddress"
+            android:background="#D0F6C7"
             android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
             android:padding="@dimen/_6sdp"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:textSize="@dimen/_14sdp" />
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
-            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="#ffff"
-            android:textSize="@dimen/_14sdp"
+            android:background="#D0F6C7"
             android:hint="@string/password"
-            android:padding="@dimen/_6sdp"
             android:inputType="textPassword"
-            android:textColor="#000000"/>
+            android:maxLines="1"
+            android:padding="@dimen/_6sdp"
+            android:textColor="#000000"
+            android:textSize="@dimen/_14sdp" />
 
         <Button
             android:id="@+id/btnSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:backgroundTint="#C42384"
-            android:text="@string/sign_up"
             android:layout_marginTop="@dimen/_20sdp"
+            android:backgroundTint="#5B6EEB"
+            android:text="@string/sign_up"
             android:textColor="#ffff" />
     </LinearLayout>
 

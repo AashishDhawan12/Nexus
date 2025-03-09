@@ -47,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
-            if(profileName == "" && email == "" && password == ""){
+            if(profileName == "" || email == "" || password == ""){
                 Toast.makeText(this,"Please fill all the fields",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
