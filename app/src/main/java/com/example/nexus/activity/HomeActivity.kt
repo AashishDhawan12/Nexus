@@ -2,13 +2,10 @@ package com.example.nexus.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nexus.R
 import com.example.nexus.adapter.HomeAdapter
@@ -24,21 +21,22 @@ import com.google.firebase.database.ValueEventListener
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding : ActivityHomeBinding
     private lateinit var reference: DatabaseReference
-    var list= mutableListOf<UserData>()
+    var list = mutableListOf<UserData>()
+    var contactList = mutableListOf<String>()
     private lateinit var adapter: HomeAdapter
     private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        auth = FirebaseAuth.getInstance()
-
-        adapter = HomeAdapter(list)
-
-        reference = FirebaseDatabase.getInstance().getReference()
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
+        adapter = HomeAdapter(list)
+        reference = FirebaseDatabase.getInstance().getReference()
+
+        binding.chatRecyclerView.adapter = HomeAdapter(list)
+        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.btnChats.setOnClickListener {
             startActivity(Intent(this,SearchActivity::class.java))
@@ -72,11 +70,10 @@ class HomeActivity : AppCompatActivity() {
             pop.show()
         }
 
+        binding.chatRecyclerView.visibility = View.GONE
+        binding.noChat.visibility = View.VISIBLE
 
-       fetchUser()
-
-        binding.chatRecyclerView.adapter = HomeAdapter(list)
-        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
+        fetchUser()
 
         val user = auth.currentUser
         val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
@@ -89,26 +86,60 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
+    fun fetchContactDetails(){
+        list.clear()
+        for(uid in contactList){
+            val database = FirebaseDatabase.getInstance()
+            val userRef = database.getReference("users").child(uid)
 
-    private fun fetchUser() {
-        reference = FirebaseDatabase.getInstance().getReference()
-        reference.child("users").addValueEventListener(
-            object : ValueEventListener {
+            userRef.addListenerForSingleValueEvent(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    list.clear()
-                    for(data in snapshot.children){
-                        val user = data.getValue(UserData::class.java)
-                        if(user != null){
-                            list.add(user)
-                        }
+                    val userData = snapshot.getValue(UserData::class.java)
+                    if (userData != null) {
+                        list.add(userData)
+                        Toast.makeText(this@HomeActivity,"${userData.userName}",Toast.LENGTH_SHORT).show()
                     }
-                    binding.chatRecyclerView.adapter?.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
 
                 }
-            }
-        )
+
+            })
+        }
     }
+
+    private fun fetchUser() {
+        val database = FirebaseDatabase.getInstance()
+        val userRef = database.getReference("users").child(auth.currentUser!!.uid)
+
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val userData = snapshot.getValue(UserData::class.java)
+                    if (userData != null) {
+                        list.add(userData)
+                    }
+
+                    val temp = userData?.contacts
+                    contactList.clear()
+                    for (i in temp!!.values){
+                        contactList.add(i)
+                    }
+                    if(contactList.isNotEmpty()){
+                        binding.chatRecyclerView.visibility = View.VISIBLE
+                        binding.noChat.visibility = View.GONE
+                        fetchContactDetails()
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+
 }

@@ -28,9 +28,6 @@ class HomeAdapter (private val data: MutableList<UserData>): RecyclerView.Adapte
         holder.binding.imgUser.setImageBitmap(bitmap)
         holder.binding.txtUserName.text = curr.userName
 
-//        holder.binding.txtRecentMessage.text = list[position].recentMessage
-//        holder.binding.txtTime.text = list[position].recentTime
-//        holder.binding.txtMessageCount.text = list[position].messageCount.toString()
     }
 
 }
