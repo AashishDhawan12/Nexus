@@ -49,7 +49,8 @@ class SignUpActivity : AppCompatActivity() {
                 task ->
                     if(task.isSuccessful){
                         val img = bitmapToBase64(bitmap!!)
-                        val user = UserData(profileName,email,password,img)
+                        val uid = auth.currentUser!!.uid
+                        val user = UserData(userName = profileName,email = email,uid = uid,password = password,image = img, contacts = hashMapOf(Pair("bob","non")))
                         database.child("users").child(auth.currentUser!!.uid).setValue(user)
 
                         val intent = Intent(this, HomeActivity::class.java)

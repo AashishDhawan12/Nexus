@@ -26,7 +26,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        adapter = SearchUserAdapter(userList)
+        adapter = SearchUserAdapter(userList,this)
 
         binding.searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -54,6 +54,14 @@ class SearchActivity : AppCompatActivity() {
 
     private fun findUser(query: String) {
         binding.progressBar.visibility = View.VISIBLE
+
+        if(query.isEmpty()){
+            userList.clear()
+            adapter.notifyDataSetChanged()
+            binding.progressBar.visibility = View.GONE
+            return
+        }
+
         db = FirebaseDatabase.getInstance().getReference("users")
         var q:Query = db.orderByChild("userName").startAt(query.toLowerCase(Locale.ROOT)).endAt(query + "\uf8ff")
 
@@ -71,6 +79,7 @@ class SearchActivity : AppCompatActivity() {
 
                     binding.searchList.adapter?.notifyDataSetChanged()
                     binding.progressBar.visibility = View.GONE
+
                 }
             }
 

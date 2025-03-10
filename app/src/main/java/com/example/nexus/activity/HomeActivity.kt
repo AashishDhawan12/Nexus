@@ -60,6 +60,7 @@ class HomeActivity : AppCompatActivity() {
                         editor.putBoolean("isLoggedIn", false)
                         editor.putString("userId", null)
                         editor.apply()
+
                         val intent = Intent(this,LoginActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -72,6 +73,24 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
+       fetchUser()
+
+        binding.chatRecyclerView.adapter = HomeAdapter(list)
+        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val user = auth.currentUser
+        val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        if(user != null) {
+            editor.putBoolean("isLoggedIn", true)
+            editor.putString("userId", user.uid)
+            editor.apply()
+        }
+
+    }
+
+    private fun fetchUser() {
         reference = FirebaseDatabase.getInstance().getReference()
         reference.child("users").addValueEventListener(
             object : ValueEventListener {
@@ -91,19 +110,5 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         )
-
-        binding.chatRecyclerView.adapter = HomeAdapter(list)
-        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        val user = auth.currentUser
-        val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-
-        if(user != null) {
-            editor.putBoolean("isLoggedIn", true)
-            editor.putString("userId", user.uid)
-            editor.apply()
-        }
-
     }
 }
