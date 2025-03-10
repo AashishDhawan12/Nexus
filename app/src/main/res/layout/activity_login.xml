@@ -38,6 +38,7 @@
             android:background="#C7EFF6"
             android:textSize="@dimen/_14sdp"
             android:hint="@string/email"
+            android:textColorHint="#564848"
             android:padding="@dimen/_6sdp"
             android:maxLines="1"
             android:inputType="textEmailAddress"
@@ -52,6 +53,7 @@
             android:maxLines="1"
             android:textSize="@dimen/_14sdp"
             android:hint="@string/password"
+            android:textColorHint="#564848"
             android:padding="@dimen/_6sdp"
             android:textColor="#000000"/>
 

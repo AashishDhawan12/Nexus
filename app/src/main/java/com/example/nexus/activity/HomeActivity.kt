@@ -2,8 +2,11 @@ package com.example.nexus.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +42,33 @@ class HomeActivity : AppCompatActivity() {
 
         binding.btnChats.setOnClickListener {
             startActivity(Intent(this,SearchActivity::class.java))
+        }
+
+        binding.btnMenu.setOnClickListener {
+            val pop = PopupMenu(this,binding.btnMenu)
+            pop.inflate(R.menu.options_menu)
+
+            pop.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.menuProfile -> {
+                        true
+                    }
+                    R.id.menuLogout -> {
+                        auth.signOut()
+                        val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putBoolean("isLoggedIn", false)
+                        editor.putString("userId", null)
+                        editor.apply()
+                        val intent = Intent(this,LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            pop.show()
         }
 
 
