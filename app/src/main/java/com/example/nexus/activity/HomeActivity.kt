@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         adapter = HomeAdapter(list)
         reference = FirebaseDatabase.getInstance().getReference()
 
-        binding.chatRecyclerView.adapter = HomeAdapter(list)
+        binding.chatRecyclerView.adapter = adapter
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.btnChats.setOnClickListener {
@@ -86,23 +86,23 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
-    fun fetchContactDetails(){
-        list.clear()
-        for(uid in contactList){
+    fun fetchContactDetails() {
+        list.clear() // Clear the list before fetching new data.
+        for (uid in contactList) {
             val database = FirebaseDatabase.getInstance()
             val userRef = database.getReference("users").child(uid)
 
-            userRef.addListenerForSingleValueEvent(object :ValueEventListener{
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userData = snapshot.getValue(UserData::class.java)
                     if (userData != null) {
                         list.add(userData)
-                        Toast.makeText(this@HomeActivity,"${userData.userName}",Toast.LENGTH_SHORT).show()
+                        adapter.notifyDataSetChanged() // Notify adapter here!
+                        Toast.makeText(this@HomeActivity, "${userData.userName}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-
                 }
 
             })
@@ -113,33 +113,28 @@ class HomeActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance()
         val userRef = database.getReference("users").child(auth.currentUser!!.uid)
 
-        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val userData = snapshot.getValue(UserData::class.java)
-                    if (userData != null) {
-                        list.add(userData)
-                    }
-
                     val temp = userData?.contacts
                     contactList.clear()
-                    for (i in temp!!.values){
+                    for (i in temp!!.values) {
                         contactList.add(i)
                     }
-                    if(contactList.isNotEmpty()){
+                    if (contactList.isNotEmpty()) {
                         binding.chatRecyclerView.visibility = View.VISIBLE
                         binding.noChat.visibility = View.GONE
                         fetchContactDetails()
-                        adapter.notifyDataSetChanged()
+                    }else{
+                        binding.chatRecyclerView.visibility = View.GONE
+                        binding.noChat.visibility = View.VISIBLE
                     }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-
             }
         })
     }
-
-
 }

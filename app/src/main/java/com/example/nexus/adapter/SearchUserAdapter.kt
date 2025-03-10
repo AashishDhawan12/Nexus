@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nexus.databinding.SingleRowUsersProfileBinding
 import com.example.nexus.model.UserData
 import android.util.Base64
-import androidx.core.content.ContextCompat.startActivity
-import com.example.nexus.ChatActivity
+import com.example.nexus.activity.ChatActivity
 
 class SearchUserAdapter(private val userList: MutableList<UserData>, val context: Context) : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>(){
     inner class ViewHolder(val binding: SingleRowUsersProfileBinding) : RecyclerView.ViewHolder(binding.root)

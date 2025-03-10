@@ -66,12 +66,12 @@
                 android:id="@+id/txtMessageCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="250"
-                android:padding="@dimen/_2sdp"
-                android:textColor="#000"
-                android:textSize="@dimen/_10sdp"
+                android:layout_margin="@dimen/_4sdp"
                 android:background="@drawable/circular_img"
-                android:layout_margin="@dimen/_4sdp"/>
+                android:padding="@dimen/_2sdp"
+                android:text="20"
+                android:textColor="#000"
+                android:textSize="@dimen/_10sdp" />
 
         </LinearLayout>
 
