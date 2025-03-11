@@ -49,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
             pop.setOnMenuItemClickListener {
                 when(it.itemId){
                     R.id.menuProfile -> {
+                        startActivity(Intent(this,ProfileActivity::class.java))
                         true
                     }
                     R.id.menuLogout -> {
