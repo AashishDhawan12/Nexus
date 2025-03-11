@@ -52,7 +52,7 @@ class ChatActivity : AppCompatActivity() {
             binding.edMessage.setText("")
             val now = LocalDateTime.now()
             val time = now.toLocalTime().format(DateTimeFormatter.ofPattern("hh:mm a"))
-            val messageObject = Message(message,senderuid,time)
+            val messageObject = Message(senderuid,message,time)
             sendMessage(messageObject)
             addContact(username,senderuid,receiverid)
         }
@@ -60,17 +60,41 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun addContact(username: String?, senderuid: String?, receiverid: String?) {
+        //setting contact for sender
         val dbRef = FirebaseDatabase.getInstance().getReference()
-        dbRef.child("users").child(senderuid!!).child("contacts")
-            .setValue(hashMapOf(Pair(username,receiverid))).addOnCompleteListener{
-                dbRef.child("users").child(receiverid!!).child("contacts")
-                    .setValue(hashMapOf(Pair(username,senderuid)))
+        dbRef.child("users").child(senderuid!!).child("contacts").get().addOnSuccessListener {
+            if(it.exists()){
+                val list = it.getValue() as MutableList<String>
+                if(!list.contains(receiverid)){
+                    list.add(receiverid!!)
+                }
+                dbRef.child("users").child(senderuid).child("contacts").setValue(list)
+            }else{
+                dbRef.child("users").child(senderuid).child("contacts").setValue(listOf(receiverid))
             }
+
+            // set contact for Receiver
+
+            dbRef.child("users").child(receiverid!!).child("contacts").get().addOnSuccessListener {
+                if(it.exists()){
+                    val list = it.getValue() as MutableList<String>
+                    if(!list.contains(senderuid)){
+                        list.add(senderuid)
+                    }
+                    dbRef.child("users").child(receiverid).child("contacts").setValue(list)
+                }else{
+                    dbRef.child("users").child(receiverid).child("contacts").setValue(listOf(senderuid))
+                }
+            }
+
+        }
+
     }
 
     private fun fetchChat() {
         val dbRef = FirebaseDatabase.getInstance().getReference()
-        dbRef.child("chats").child(senderRoom!!).child("messages").addValueEventListener(object :ValueEventListener{
+        dbRef.child("chats").child(senderRoom!!)
+            .addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     messageList.clear()

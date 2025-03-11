@@ -110,18 +110,16 @@ class HomeActivity : AppCompatActivity() {
 
     private fun fetchUser() {
         val database = FirebaseDatabase.getInstance()
-        val userRef = database.getReference("users").child(auth.currentUser!!.uid)
+        val userRef = database.getReference("users").child(auth.currentUser!!.uid).child("contacts")
 
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val userData = snapshot.getValue(UserData::class.java)
-                    val temp = userData?.contacts
-                    if(temp != null){
+                    val userData = snapshot.getValue() as List<String>
+                    if(userData != null){
                         contactList.clear()
-                        for (i in temp.values) {
-                            contactList.add(i)
-                        }
+                        contactList.addAll(userData)
+
                         if (contactList.isNotEmpty()) {
                             binding.chatRecyclerView.visibility = View.VISIBLE
                             binding.noChat.visibility = View.GONE

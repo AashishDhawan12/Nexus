@@ -6,5 +6,5 @@ data class UserData(
     val password : String? ="",
     val image : String? ="",
     val uid : String? = "",
-    val contacts: HashMap<String,String> ? = null
+    val contacts: List<String> ? = null
 )
