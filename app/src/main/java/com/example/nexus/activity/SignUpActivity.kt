@@ -50,7 +50,7 @@ class SignUpActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         val img = bitmapToBase64(bitmap!!)
                         val uid = auth.currentUser!!.uid
-                        val user = UserData(userName = profileName,email = email,uid = uid,password = password,image = img, contacts = hashMapOf(Pair("bob","non")))
+                        val user = UserData(userName = profileName,email = email,uid = uid,password = password,image = img)
                         database.child("users").child(auth.currentUser!!.uid).setValue(user)
 
                         val intent = Intent(this, HomeActivity::class.java)
@@ -72,7 +72,7 @@ class SignUpActivity : AppCompatActivity() {
 
     fun bitmapToBase64(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream) // You can change the format and quality
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
         val byteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }

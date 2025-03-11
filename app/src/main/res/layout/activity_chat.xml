@@ -7,4 +7,57 @@
     android:layout_height="match_parent"
     tools:context=".activity.ChatActivity">
 
+    <TextView
+        android:id="@+id/txtUser"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2D2C2C"
+        android:fontFamily="@font/ar_one_sans"
+        android:paddingLeft="@dimen/_8sdp"
+        android:text="@string/app_name"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUser" />
+
+    <LinearLayout
+        android:id="@+id/bottomLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/_8sdp">
+
+        <EditText
+            android:id="@+id/edMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/send_message"
+            android:layout_weight="80"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btnSendMessage"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_send"
+            android:background="@color/white"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            android:layout_weight="20"
+            android:layout_margin="@dimen/_4sdp"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

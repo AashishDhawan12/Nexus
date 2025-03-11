@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-        adapter = HomeAdapter(list)
+        adapter = HomeAdapter(this,list)
         reference = FirebaseDatabase.getInstance().getReference()
 
         binding.chatRecyclerView.adapter = adapter
@@ -87,7 +87,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
     fun fetchContactDetails() {
-        list.clear() // Clear the list before fetching new data.
+        list.clear()
         for (uid in contactList) {
             val database = FirebaseDatabase.getInstance()
             val userRef = database.getReference("users").child(uid)
@@ -97,8 +97,7 @@ class HomeActivity : AppCompatActivity() {
                     val userData = snapshot.getValue(UserData::class.java)
                     if (userData != null) {
                         list.add(userData)
-                        adapter.notifyDataSetChanged() // Notify adapter here!
-                        Toast.makeText(this@HomeActivity, "${userData.userName}", Toast.LENGTH_SHORT).show()
+                        adapter.notifyDataSetChanged()
                     }
                 }
 
@@ -118,17 +117,19 @@ class HomeActivity : AppCompatActivity() {
                 if (snapshot.exists()) {
                     val userData = snapshot.getValue(UserData::class.java)
                     val temp = userData?.contacts
-                    contactList.clear()
-                    for (i in temp!!.values) {
-                        contactList.add(i)
-                    }
-                    if (contactList.isNotEmpty()) {
-                        binding.chatRecyclerView.visibility = View.VISIBLE
-                        binding.noChat.visibility = View.GONE
-                        fetchContactDetails()
-                    }else{
-                        binding.chatRecyclerView.visibility = View.GONE
-                        binding.noChat.visibility = View.VISIBLE
+                    if(temp != null){
+                        contactList.clear()
+                        for (i in temp.values) {
+                            contactList.add(i)
+                        }
+                        if (contactList.isNotEmpty()) {
+                            binding.chatRecyclerView.visibility = View.VISIBLE
+                            binding.noChat.visibility = View.GONE
+                            fetchContactDetails()
+                        }else{
+                            binding.chatRecyclerView.visibility = View.GONE
+                            binding.noChat.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

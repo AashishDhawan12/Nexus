@@ -34,6 +34,9 @@ class SearchUserAdapter(private val userList: MutableList<UserData>, val context
 
         holder.binding.singleItemLayout.setOnClickListener{
             val int = Intent(context, ChatActivity::class.java)
+            int.putExtra("name",currentUser.userName)
+//            int.putExtra("image",currentUser.image)
+            int.putExtra("uid",currentUser.uid)
             context.startActivity(int)
         }
     }

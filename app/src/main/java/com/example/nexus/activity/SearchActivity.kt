@@ -26,6 +26,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         adapter = SearchUserAdapter(userList,this)
 
         binding.searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -47,7 +48,6 @@ class SearchActivity : AppCompatActivity() {
 
         })
 
-
         binding.searchList.layoutManager = LinearLayoutManager(this)
         binding.searchList.adapter = adapter
     }
@@ -63,7 +63,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         db = FirebaseDatabase.getInstance().getReference("users")
-        var q:Query = db.orderByChild("userName").startAt(query.toLowerCase(Locale.ROOT)).endAt(query + "\uf8ff")
+        val q:Query = db.orderByChild("userName").startAt(query).endAt(query + "\uf8ff")
 
         q.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -76,18 +76,14 @@ class SearchActivity : AppCompatActivity() {
                             userList.add(user)
                         }
                     }
-
-                    binding.searchList.adapter?.notifyDataSetChanged()
+                    adapter.notifyDataSetChanged()
                     binding.progressBar.visibility = View.GONE
-
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
                 binding.progressBar.visibility = View.GONE
             }
-
         })
-
     }
 }
