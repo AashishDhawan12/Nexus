@@ -4,13 +4,11 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.nexus.R
+
 import com.example.nexus.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import kotlin.io.encoding.Base64
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -28,6 +26,11 @@ class ProfileActivity : AppCompatActivity() {
                 snapshot -> if(snapshot.exists()){
                     binding.userName.text = snapshot.child("userName").value.toString()
                     binding.userEmail.text = snapshot.child("email").value.toString()
+
+                    val img = snapshot.child("image").value.toString() // uri
+                val decodedBytes = android.util.Base64.decode(img, android.util.Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                binding.userImg.setImageBitmap(bitmap)
                 }
             }
         }
