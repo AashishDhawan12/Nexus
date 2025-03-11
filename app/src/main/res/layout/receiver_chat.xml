@@ -2,17 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_2sdp">
+    android:layout_marginRight="@dimen/_50sdp"
+    android:layout_marginVertical="@dimen/_1sdp">
 
     <TextView
         android:id="@+id/txtReceiverMessage"
         android:layout_width="wrap_content"
+        android:minWidth="@dimen/_69sdp"
         android:layout_height="wrap_content"
-        android:text="Receiver meassage"
-        android:textSize="@dimen/_16sdp"
-        android:layout_margin="@dimen/_4sdp"
+        android:text="Receiver message"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/white"
+        android:layout_margin="@dimen/_1sdp"
         android:background="@drawable/round_corner_bg"
-        android:padding="@dimen/_4sdp"
+        android:backgroundTint="#e91e63"
+        android:padding="@dimen/_6sdp"
         />
 
 </RelativeLayout>

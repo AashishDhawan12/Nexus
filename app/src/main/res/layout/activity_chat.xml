@@ -17,7 +17,7 @@
         android:text="@string/app_name"
         android:gravity="center_vertical"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/_8sdp">
+        android:layout_margin="@dimen/_10sdp">
 
         <EditText
             android:id="@+id/edMessage"
@@ -54,10 +54,11 @@
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_30sdp"
             android:src="@drawable/ic_send"
+            android:scaleType="centerInside"
             android:background="@color/white"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
             android:layout_weight="20"
-            android:layout_margin="@dimen/_4sdp"/>
+            android:layout_margin="@dimen/_6sdp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,17 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_2sdp">
+    android:layout_marginLeft="@dimen/_50sdp"
+    android:layout_marginVertical="@dimen/_1sdp">
 
     <TextView
         android:id="@+id/txtSenderMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sender meassage"
-        android:textSize="@dimen/_16sdp"
+        android:minWidth="@dimen/_69sdp"
+        android:text="Sender message"
+        android:textSize="@dimen/_14sdp"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/_4sdp"
+        android:layout_margin="@dimen/_1sdp"
         android:background="@drawable/round_corner_bg"
-        android:padding="@dimen/_4sdp"
+        android:backgroundTint="#1e88e5"
+        android:textColor="@color/white"
+        android:padding="@dimen/_6sdp"
         />
 </RelativeLayout>

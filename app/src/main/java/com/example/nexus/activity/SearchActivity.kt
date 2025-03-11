@@ -20,7 +20,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var adapter: SearchUserAdapter
     private lateinit var db: DatabaseReference
-     var userList= mutableListOf<UserData>()
+    var userList= mutableListOf<UserData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
