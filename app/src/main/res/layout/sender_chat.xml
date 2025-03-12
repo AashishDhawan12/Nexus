@@ -8,15 +8,26 @@
     <TextView
         android:id="@+id/txtSenderMessage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:minWidth="@dimen/_69sdp"
+        android:layout_height="wrap_content"
         android:text="Sender message"
         android:textSize="@dimen/_14sdp"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:background="@drawable/round_corner_bg"
         android:backgroundTint="#1e88e5"
         android:textColor="@color/white"
         android:padding="@dimen/_6sdp"
         />
+
+    <TextView
+        android:id="@+id/txtSenderTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_10sdp"
+        android:layout_below="@+id/txtSenderMessage"
+        android:layout_alignParentRight="true"
+        android:text="Time"
+        android:layout_marginEnd="@dimen/_10sdp"/>
 </RelativeLayout>

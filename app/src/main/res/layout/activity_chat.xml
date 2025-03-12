@@ -45,9 +45,11 @@
         <EditText
             android:id="@+id/edMessage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:hint="@string/send_message"
-            android:layout_weight="80"/>
+            android:layout_weight="80"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/et_background"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btnSendMessage"

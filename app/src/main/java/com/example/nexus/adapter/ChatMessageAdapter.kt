@@ -41,9 +41,11 @@ class ChatMessageAdapter(val messageList: List<Message>) : RecyclerView.Adapter<
         if(holder.javaClass == senderViewHolder::class.java){
             val vh = holder as senderViewHolder
             vh.senderView.txtSenderMessage.text = message.message
+            vh.senderView.txtSenderTime.text = message.timestamp
         }else{
             val vh = holder as receiverViewHolder
             vh.receiverView.txtReceiverMessage.text = message.message
+            vh.receiverView.txtReceiverTime.text = message.timestamp
         }
     }
 }
