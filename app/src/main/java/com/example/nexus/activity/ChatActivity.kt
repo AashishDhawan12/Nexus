@@ -103,6 +103,7 @@ class ChatActivity : AppCompatActivity() {
                         messageList.add(message!!)
                     }
                     adapter.notifyDataSetChanged()
+                    binding.messageRecycler.scrollToPosition(messageList.size-1)
                 }
             }
 

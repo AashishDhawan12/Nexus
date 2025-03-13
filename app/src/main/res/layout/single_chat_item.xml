@@ -71,6 +71,7 @@
                 android:background="@drawable/circular_img"
                 android:padding="@dimen/_2sdp"
                 android:text="20"
+                android:visibility="invisible"
                 android:textColor="#000"
                 android:textSize="@dimen/_10sdp" />
 
