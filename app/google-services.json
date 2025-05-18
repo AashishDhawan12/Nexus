@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "272020516050",
+    "firebase_url": "https://nexuschat-1ede4-default-rtdb.firebaseio.com",
     "project_id": "nexuschat-1ede4",
     "storage_bucket": "nexuschat-1ede4.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.nexus"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nexus",
+            "certificate_hash": "578bd8ea761225daefed8e479d3688a69cdcf62f"
+          }
+        },
+        {
+          "client_id": "272020516050-cik0uaeuaqk2cgcv4tpdfmcp325c6blm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDbOKhd4NDEaUR2ICpmjoOAUivPdX-EzLA"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272020516050-cik0uaeuaqk2cgcv4tpdfmcp325c6blm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

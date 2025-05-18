@@ -10,9 +10,12 @@ import androidx.collection.intIntMapOf
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexus.activity.ChatActivity
 import com.example.nexus.databinding.SingleChatItemBinding
+import com.example.nexus.model.Message
 import com.example.nexus.model.UserData
 
-class HomeAdapter (val context: Context, private val data: MutableList<UserData>): RecyclerView.Adapter<HomeAdapter.ViewModel>() {
+class HomeAdapter (val context: Context,
+                   private val data: MutableList<UserData>,
+                   private val message: MutableMap<String, Message?>): RecyclerView.Adapter<HomeAdapter.ViewModel>() {
     inner class ViewModel (val binding: SingleChatItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewModel {
@@ -26,11 +29,14 @@ class HomeAdapter (val context: Context, private val data: MutableList<UserData>
 
     override fun onBindViewHolder(holder: ViewModel, position: Int) {
         val curr = data[position]
+        val msg = message[curr.uid]
         val decodedBytes = Base64.decode(curr.image, Base64.DEFAULT)
         val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
 
         holder.binding.imgUser.setImageBitmap(bitmap)
         holder.binding.txtUserName.text = curr.userName
+        holder.binding.txtRecentMessage.text = msg?.message
+        holder.binding.txtTime.text = msg?.timestamp
 
         holder.binding.profileContainer.setOnClickListener {
             val int = Intent(context, ChatActivity::class.java)

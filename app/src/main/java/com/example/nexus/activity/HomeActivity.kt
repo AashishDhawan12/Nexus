@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nexus.R
 import com.example.nexus.adapter.HomeAdapter
 import com.example.nexus.databinding.ActivityHomeBinding
+import com.example.nexus.model.Message
 import com.example.nexus.model.UserData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -22,9 +23,12 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding : ActivityHomeBinding
     private lateinit var reference: DatabaseReference
     var list = mutableListOf<UserData>()
+    var message : MutableMap<String,Message?> = mutableMapOf()
     var contactList = mutableListOf<String>()
     private lateinit var adapter: HomeAdapter
     private lateinit var auth : FirebaseAuth
+    private var senderUid : String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +36,8 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-        adapter = HomeAdapter(this,list)
+        senderUid = auth.currentUser!!.uid
+        adapter = HomeAdapter(this,list,message)
         reference = FirebaseDatabase.getInstance().getReference()
 
         binding.chatRecyclerView.adapter = adapter
@@ -91,9 +96,9 @@ class HomeActivity : AppCompatActivity() {
         list.clear()
         for (uid in contactList) {
             val database = FirebaseDatabase.getInstance()
-            val userRef = database.getReference("users").child(uid)
+            val userRef = database.getReference("users")
 
-            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            userRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userData = snapshot.getValue(UserData::class.java)
                     if (userData != null) {
@@ -106,6 +111,27 @@ class HomeActivity : AppCompatActivity() {
                 }
 
             })
+
+            val dbRef = FirebaseDatabase.getInstance().getReference()
+            dbRef.child("chats").child(senderUid + uid)
+                .addValueEventListener(object :ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+//                        if (snapshot.exists()){
+//                            val msg = snapshot.getValue() as Message
+//                            message[uid] = msg
+//                        }else{
+//                            message[uid] = null
+//                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                })
+
+
         }
     }
 

@@ -48,6 +48,7 @@ class ChatActivity : AppCompatActivity() {
             val message = binding.edMessage.text.toString()
             if(message.isEmpty()){
                 return@setOnClickListener
+
             }
             binding.edMessage.setText("")
             val now = LocalDateTime.now()

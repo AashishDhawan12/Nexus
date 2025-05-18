@@ -14,6 +14,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.io.ByteArrayOutputStream
 import android.util.Base64
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.nexus.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.GoogleAuthProvider
 import java.io.FileNotFoundException
 
 class SignUpActivity : AppCompatActivity() {
@@ -21,6 +29,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private  var bitmap : Bitmap? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +72,8 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
+
+
 
     private fun selectImage() {
         val photoPickerIntent = Intent(Intent.ACTION_PICK)
