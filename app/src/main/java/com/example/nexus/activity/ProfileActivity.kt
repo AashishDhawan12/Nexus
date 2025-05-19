@@ -2,9 +2,7 @@ package com.example.nexus.activity
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.nexus.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -28,6 +26,9 @@ class ProfileActivity : AppCompatActivity() {
                     binding.userEmail.text = snapshot.child("email").value.toString()
 
                     val img = snapshot.child("image").value.toString() // uri
+                if(img.isEmpty()){
+                    return@addOnSuccessListener
+                }
                 val decodedBytes = android.util.Base64.decode(img, android.util.Base64.DEFAULT)
                 val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
                 binding.userImg.setImageBitmap(bitmap)

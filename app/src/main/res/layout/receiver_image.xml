@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/_50sdp"
+    android:layout_marginVertical="@dimen/_1sdp">
+
+    <ImageView
+        android:id="@+id/ImgReceiver"
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="@dimen/_240sdp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:background="@drawable/round_corner_bg"
+        android:backgroundTint="#e91e63"
+        android:padding="@dimen/_6sdp"
+        />
+
+    <TextView
+        android:id="@+id/txtReceiverTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_10sdp"
+        android:layout_below="@+id/ImgReceiver"
+        android:text="Time"
+        android:layout_marginStart="@dimen/_10sdp"/>
+</RelativeLayout>

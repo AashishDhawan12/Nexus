@@ -37,6 +37,7 @@ class HomeAdapter (val context: Context,
         holder.binding.txtUserName.text = curr.userName
         holder.binding.txtRecentMessage.text = msg?.message
         holder.binding.txtTime.text = msg?.timestamp
+        holder.binding.txtRecentMessage.text = curr.email
 
         holder.binding.profileContainer.setOnClickListener {
             val int = Intent(context, ChatActivity::class.java)

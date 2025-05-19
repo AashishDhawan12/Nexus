@@ -40,6 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/et_background"
         android:layout_margin="@dimen/_10sdp">
 
         <EditText
@@ -56,6 +57,17 @@
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_30sdp"
             android:src="@drawable/ic_send"
+            android:scaleType="centerInside"
+            android:background="@color/white"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            android:layout_weight="20"
+            android:layout_margin="@dimen/_6sdp"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btnSendImage"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_add_image"
             android:scaleType="centerInside"
             android:background="@color/white"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"

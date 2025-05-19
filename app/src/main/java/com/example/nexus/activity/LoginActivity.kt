@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -78,20 +79,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result ->
+        result ->
         if(result.resultCode == Activity.RESULT_OK){
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+
             handleResults(task)
+        }else{
+            Toast.makeText(this,"something went wrong", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private  fun handleResults(task: Task<GoogleSignInAccount>){
-        if(task.isSuccessful){
-            val account : GoogleSignInAccount? = task.result
+    private fun handleResults(task: Task<GoogleSignInAccount>){
+        try {
+            val account: GoogleSignInAccount? = task.getResult(com.google.android.gms.common.api.ApiException::class.java)
             if(account!=null){
                 val credentials = GoogleAuthProvider.getCredential(account.idToken,null)
-                auth.signInWithCredential(credentials).addOnCompleteListener{
-                    if(it.isSuccessful){
+                auth.signInWithCredential(credentials).addOnCompleteListener(this){ authTask ->
+                    if(authTask.isSuccessful){
                         val uid = auth.currentUser!!.uid
                         val user = UserData(userName = account.displayName,email = account.email, uid = uid)
                         database.child("users").child(auth.currentUser!!.uid).setValue(user)
@@ -99,12 +103,24 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }else{
-                        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                        // Log Firebase Auth error
+                        Log.e("LoginActivity", "Firebase Auth with Google failed: ${authTask.exception}")
+                        Toast.makeText(this, "Firebase authentication failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             }else{
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Google account is null", Toast.LENGTH_SHORT).show()
+                Log.e("LoginActivity", "Google account is null after sign-in")
             }
+        } catch (e: com.google.android.gms.common.api.ApiException) {
+            // Log Google Sign-In API error
+            Log.e("LoginActivity", "Google Sign-In failed: ${e.statusCode}", e)
+            Toast.makeText(this, "Google Sign-In failed: ${e.statusCode}", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            // Log any other unexpected errors
+            Log.e("LoginActivity", "An unexpected error occurred: ${e.message}", e)
+            Toast.makeText(this, "An unexpected error occurred", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
